@@ -176,12 +176,12 @@ export default function HeroSection() {
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, delay: 0.3, ease: 'easeOut' }}
-            className="hidden lg:block mt-36"
+            className="hidden lg:block mt-48"
             aria-hidden="true"
           >
             <div className="relative">
               {/* Main card — compact */}
-              <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-5 shadow-2xl">
+              <div className="bg-white/8 backdrop-blur-sm border border-white/15 rounded-2xl p-5 shadow-2xl">
                 <div className="flex items-center gap-2.5 mb-3">
                   <div className="w-8 h-8 rounded-lg bg-amber-400 flex items-center justify-center flex-shrink-0">
                     <span className="text-slate-900 font-black text-xs">NRZ</span>
