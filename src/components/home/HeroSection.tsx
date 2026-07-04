@@ -31,26 +31,30 @@ export default function HeroSection() {
 
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden" aria-label="Hero">
-      {/* Photographic background — grayscale+dim filter neutralises baked-in red text/graphics */}
+      {/* Photographic background — shifted right so the clean doctor portrait fills the frame */}
       <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        className="absolute inset-0 bg-no-repeat"
         style={{
           backgroundImage: "url('/hero-bg.png')",
-          filter: 'grayscale(100%) brightness(0.28)',
+          backgroundSize: 'cover',
+          backgroundPosition: '85% center',
+          filter: 'brightness(0.72)',
         }}
         aria-hidden="true"
       />
 
-      {/* Primary colour overlay — tints the greyscale photo with brand blue */}
+      {/* 
+        Multi-stop overlay:
+        • 0-55%  very dark  → buries the baked-in red text on the left side of the photo
+        • 55-75% medium     → transition zone / card background
+        • 75-100% light     → lets the doctor portrait show on the far right
+      */}
       <div
         className="absolute inset-0"
-        style={{ backgroundColor: 'rgba(8, 16, 56, 0.78)' }}
-        aria-hidden="true"
-      />
-
-      {/* Directional gradient — slightly lighter on the right to subtly reveal the photo depth */}
-      <div
-        className="absolute inset-0 bg-gradient-to-r from-blue-950/50 via-blue-900/10 to-blue-800/30"
+        style={{
+          background:
+            'linear-gradient(to right, rgba(8,16,80,0.93) 0%, rgba(8,16,80,0.93) 45%, rgba(8,16,80,0.60) 62%, rgba(8,16,80,0.28) 78%, rgba(8,16,80,0.12) 100%)',
+        }}
         aria-hidden="true"
       />
 
