@@ -176,30 +176,30 @@ export default function HeroSection() {
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, delay: 0.3, ease: 'easeOut' }}
-            className="hidden lg:block mt-24"
+            className="hidden lg:block mt-36"
             aria-hidden="true"
           >
             <div className="relative">
-              {/* Main card */}
-              <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8 shadow-2xl">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-10 h-10 rounded-xl bg-amber-400 flex items-center justify-center">
-                    <span className="text-slate-900 font-black text-sm">NRZ</span>
+              {/* Main card — compact */}
+              <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-5 shadow-2xl">
+                <div className="flex items-center gap-2.5 mb-3">
+                  <div className="w-8 h-8 rounded-lg bg-amber-400 flex items-center justify-center flex-shrink-0">
+                    <span className="text-slate-900 font-black text-xs">NRZ</span>
                   </div>
                   <div>
-                    <p className="text-white font-semibold text-sm">NRZ International</p>
+                    <p className="text-white font-semibold text-sm leading-tight">NRZ International</p>
                     <p className="text-blue-300 text-xs">Admission Portal</p>
                   </div>
                 </div>
 
-                <p className="text-blue-100/70 text-sm mb-6">Select your preferred program to begin your application</p>
+                <p className="text-blue-100/70 text-xs mb-3">Select your preferred program to begin your application</p>
 
                 {/* Program pills */}
-                <div className="flex flex-wrap gap-2 mb-6">
+                <div className="flex flex-wrap gap-1.5 mb-3">
                   {['MBBS', 'BDS', 'Engineering', 'Pharmacy', 'Nursing', 'Chinese Language'].map((prog, i) => (
                     <span
                       key={prog}
-                      className={`px-3 py-1.5 rounded-full text-xs font-semibold cursor-pointer transition-all ${
+                      className={`px-2.5 py-1 rounded-full text-[11px] font-semibold cursor-pointer transition-all ${
                         i === 0
                           ? 'bg-amber-400 text-slate-900'
                           : 'bg-white/10 text-white/80 hover:bg-white/20'
@@ -211,7 +211,7 @@ export default function HeroSection() {
                 </div>
 
                 {/* University list */}
-                <div className="space-y-3">
+                <div className="space-y-2">
                   {[
                     { name: 'Changsha Medical University', fee: '30,000 RMB/yr', badge: 'Most Popular' },
                     { name: 'Chifeng University', fee: '25,000 RMB/yr', badge: 'Scholarship Available' },
@@ -219,13 +219,13 @@ export default function HeroSection() {
                   ].map((uni) => (
                     <div
                       key={uni.name}
-                      className="flex items-center justify-between bg-white/8 hover:bg-white/15 rounded-xl p-3.5 cursor-pointer transition-all border border-white/10"
+                      className="flex items-center justify-between bg-white/8 hover:bg-white/15 rounded-xl px-3 py-2.5 cursor-pointer transition-all border border-white/10"
                     >
                       <div>
-                        <p className="text-white text-sm font-semibold">{uni.name}</p>
-                        <p className="text-blue-300 text-xs mt-0.5">{uni.fee}</p>
+                        <p className="text-white text-xs font-semibold">{uni.name}</p>
+                        <p className="text-blue-300 text-[11px] mt-0.5">{uni.fee}</p>
                       </div>
-                      <span className="text-[10px] font-bold bg-amber-400/20 text-amber-300 border border-amber-400/30 px-2 py-1 rounded-full whitespace-nowrap">
+                      <span className="text-[10px] font-bold bg-amber-400/20 text-amber-300 border border-amber-400/30 px-2 py-0.5 rounded-full whitespace-nowrap ml-2">
                         {uni.badge}
                       </span>
                     </div>
@@ -234,7 +234,7 @@ export default function HeroSection() {
 
                 <Link
                   to="/apply"
-                  className="mt-5 block w-full py-3 bg-amber-400 hover:bg-amber-500 text-slate-900 font-bold text-sm rounded-xl transition-colors text-center"
+                  className="mt-3 block w-full py-2.5 bg-amber-400 hover:bg-amber-500 text-slate-900 font-bold text-sm rounded-xl transition-colors text-center"
                 >
                   Start Your Application →
                 </Link>
