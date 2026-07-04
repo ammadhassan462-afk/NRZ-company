@@ -1,0 +1,1 @@
+- [NRZ Week1 stack & rules](nrz-week1.md) — Vite+React+TS+Tailwind v4+Framer Motion+React Router; UI-only, mock data, no backend until Week 2
