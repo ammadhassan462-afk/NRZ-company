@@ -1,0 +1,162 @@
+Before writing any code, read these instructions carefully and follow them throughout this project.
+
+We are building the NRZ International Website based on the provided Product Requirements Document (PRD), the uploaded Figma design, and the official NRZ website.
+
+## Project Goal
+
+The goal of Week 1 is ONLY to build a fully clickable, production-quality frontend prototype.
+
+This is NOT the backend development phase.
+
+Every decision should follow the PRD.
+
+Do not invent new workflows, features, or pages that are not described in the PRD unless I explicitly approve them.
+
+The uploaded Figma is only a visual design reference.
+
+The PRD is the source of truth for functionality.
+
+--------------------------------------------------
+
+## Week 1 Rules (STRICT)
+
+DO:
+
+✔ Build beautiful production-quality UI.
+
+✔ Use mock/static JSON data.
+
+✔ Make every page clickable.
+
+✔ Connect pages using React Router.
+
+✔ Create reusable components.
+
+✔ Make layouts responsive.
+
+✔ Follow the uploaded Figma's design language.
+
+✔ Keep the website visually consistent.
+
+✔ Use Framer Motion only for subtle animations.
+
+✔ Use shadcn/ui components where appropriate.
+
+✔ Use Lucide icons.
+
+✔ Follow modern UI/UX best practices.
+
+--------------------------------------------------
+
+DO NOT:
+
+❌ Do NOT implement Supabase.
+
+❌ Do NOT create a database.
+
+❌ Do NOT write backend code.
+
+❌ Do NOT implement authentication.
+
+❌ Do NOT create API calls.
+
+❌ Do NOT write SQL.
+
+❌ Do NOT connect forms.
+
+❌ Do NOT upload files.
+
+❌ Do NOT implement business logic.
+
+❌ Do NOT create server actions.
+
+❌ Do NOT implement role-based access.
+
+❌ Do NOT create document upload functionality.
+
+❌ Do NOT implement notifications.
+
+❌ Do NOT implement dashboards.
+
+❌ Do NOT implement application tracking.
+
+❌ Do NOT implement consultant features.
+
+❌ Do NOT implement admin features.
+
+Everything should use mock data only.
+
+--------------------------------------------------
+
+## UI Behaviour
+
+Buttons should navigate between pages.
+
+Forms should visually submit but not actually save anything.
+
+Search bars should visually work using mock data only.
+
+Dropdowns should open normally.
+
+Cards should animate.
+
+Everything should appear functional without requiring a backend.
+
+--------------------------------------------------
+
+## Design Guidelines
+
+Technology Stack
+
+• React
+• TypeScript
+• Vite
+• TailwindCSS
+• shadcn/ui
+• Framer Motion
+• React Router
+• Lucide React
+
+Design Style
+
+Premium
+
+Professional
+
+Minimal
+
+Modern
+
+Corporate
+
+Trustworthy
+
+Inspired by international SaaS platforms.
+
+--------------------------------------------------
+
+## IMPORTANT
+
+The PRD is the functional source of truth.
+
+The uploaded Figma is the visual source of truth.
+
+The official NRZ website is the content reference.
+
+If there is any conflict:
+
+PRD > My Instructions > Figma > NRZ Website
+
+--------------------------------------------------
+
+## Before Making Any Changes
+
+Never modify project structure, routing, pages, functionality, or add features outside the scope of my request without asking for my approval first.
+
+If you think something should be improved, suggest it first instead of implementing it automatically.
+
+Always wait for my approval before making architectural or functional changes.
+
+Only build exactly what I request.
+
+Acknowledge these instructions internally and follow them for all future tasks until I explicitly tell you that Week 1 is complete.
