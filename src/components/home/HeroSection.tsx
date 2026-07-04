@@ -31,20 +31,34 @@ export default function HeroSection() {
 
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden" aria-label="Hero">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-950 via-blue-900 to-blue-800" />
+      {/* Photographic background — grayscale+dim filter neutralises baked-in red text/graphics */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: "url('/hero-bg.png')",
+          filter: 'grayscale(100%) brightness(0.28)',
+        }}
+        aria-hidden="true"
+      />
 
-      {/* Decorative elements */}
-      <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-blue-700/30 rounded-full blur-3xl" />
-        <div className="absolute top-1/2 -left-20 w-72 h-72 bg-amber-400/10 rounded-full blur-3xl" />
-        <div className="absolute -bottom-20 right-1/3 w-80 h-80 bg-blue-600/20 rounded-full blur-3xl" />
-        <div
-          className="absolute inset-0 opacity-[0.04]"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-          }}
-        />
+      {/* Primary colour overlay — tints the greyscale photo with brand blue */}
+      <div
+        className="absolute inset-0"
+        style={{ backgroundColor: 'rgba(8, 16, 56, 0.78)' }}
+        aria-hidden="true"
+      />
+
+      {/* Directional gradient — slightly lighter on the right to subtly reveal the photo depth */}
+      <div
+        className="absolute inset-0 bg-gradient-to-r from-blue-950/50 via-blue-900/10 to-blue-800/30"
+        aria-hidden="true"
+      />
+
+      {/* Decorative glow accents */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+        <div className="absolute -top-40 -right-40 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl" />
+        <div className="absolute top-1/2 -left-20 w-72 h-72 bg-amber-400/8 rounded-full blur-3xl" />
+        <div className="absolute -bottom-20 right-1/3 w-80 h-80 bg-blue-600/15 rounded-full blur-3xl" />
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-20">
