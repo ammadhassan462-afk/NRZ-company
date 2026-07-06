@@ -58,7 +58,7 @@ export default function Footer() {
               </div>
             </Link>
 
-            <p className="text-slate-400 text-sm leading-relaxed mb-6 max-w-xs">
+            <p className="text-slate-300 text-sm leading-relaxed mb-6 max-w-xs">
               Pakistan's most trusted MBBS and medical education consultancy — connecting
               Pakistani students with WHO &amp; PMDC recognized universities in China and
               Kyrgyzstan since 2008.
@@ -73,7 +73,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={s.label}
-                  className={`w-9 h-9 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-300 text-xs font-bold transition-all ${s.color} hover:text-white hover:border-transparent`}
+                  className={`w-9 h-9 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-100 text-xs font-bold transition-all ${s.color} hover:text-white hover:border-transparent`}
                 >
                   {s.abbr}
                 </a>
@@ -100,7 +100,7 @@ export default function Footer() {
                 <li key={link.href}>
                   <Link
                     to={link.href}
-                    className="text-slate-400 hover:text-white text-sm transition-colors hover:translate-x-0.5 inline-block"
+                    className="text-slate-300 hover:text-white text-sm transition-colors hover:translate-x-0.5 inline-block"
                   >
                     {link.label}
                   </Link>
@@ -117,7 +117,7 @@ export default function Footer() {
                 <li key={link.href}>
                   <Link
                     to={link.href}
-                    className="text-slate-400 hover:text-white text-sm transition-colors"
+                    className="text-slate-300 hover:text-white text-sm transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -136,24 +136,24 @@ export default function Footer() {
                   {office.city} — {office.label}
                 </p>
                 <div className="space-y-2">
-                  <div className="flex items-start gap-2 text-slate-400 text-xs">
-                    <MapPin size={13} className="flex-shrink-0 mt-0.5 text-slate-500" aria-hidden="true" />
+                  <div className="flex items-start gap-2 text-slate-300 text-xs">
+                    <MapPin size={13} className="flex-shrink-0 mt-0.5 text-slate-400" aria-hidden="true" />
                     <span>{office.address}</span>
                   </div>
-                  <div className="flex items-center gap-2 text-slate-400 text-xs">
-                    <Phone size={13} className="flex-shrink-0 text-slate-500" aria-hidden="true" />
+                  <div className="flex items-center gap-2 text-slate-300 text-xs">
+                    <Phone size={13} className="flex-shrink-0 text-slate-400" aria-hidden="true" />
                     <a href={`tel:${office.phone.replace(/\s/g, '')}`} className="hover:text-white transition-colors">
                       {office.phone}
                     </a>
                   </div>
-                  <div className="flex items-center gap-2 text-slate-400 text-xs">
-                    <Mail size={13} className="flex-shrink-0 text-slate-500" aria-hidden="true" />
+                  <div className="flex items-center gap-2 text-slate-300 text-xs">
+                    <Mail size={13} className="flex-shrink-0 text-slate-400" aria-hidden="true" />
                     <a href={`mailto:${office.email}`} className="hover:text-white transition-colors">
                       {office.email}
                     </a>
                   </div>
-                  <div className="flex items-center gap-2 text-slate-400 text-xs">
-                    <Clock size={13} className="flex-shrink-0 text-slate-500" aria-hidden="true" />
+                  <div className="flex items-center gap-2 text-slate-300 text-xs">
+                    <Clock size={13} className="flex-shrink-0 text-slate-400" aria-hidden="true" />
                     <span>{office.hours}</span>
                   </div>
                 </div>
@@ -166,7 +166,7 @@ export default function Footer() {
                 <Link
                   key={link.href}
                   to={link.href}
-                  className="text-slate-500 hover:text-white text-xs transition-colors"
+                  className="text-slate-400 hover:text-white text-xs transition-colors"
                 >
                   {link.label}
                 </Link>
@@ -177,7 +177,7 @@ export default function Footer() {
 
         {/* ── Recognition bar ── */}
         <div className="border-t border-slate-800 pt-8 pb-6">
-          <p className="text-slate-500 text-xs font-bold uppercase tracking-widest mb-4 text-center">
+          <p className="text-slate-400 text-xs font-bold uppercase tracking-widest mb-4 text-center">
             Our Partner Universities are Recognized By
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3">
@@ -189,7 +189,7 @@ export default function Footer() {
               >
                 <span className="w-2 h-2 rounded-full bg-blue-400 flex-shrink-0" aria-hidden="true" />
                 <span className="text-white text-xs font-bold">{r.abbr}</span>
-                <span className="text-slate-500 text-xs hidden sm:inline">— {r.name}</span>
+                <span className="text-slate-400 text-xs hidden sm:inline">— {r.name}</span>
               </div>
             ))}
           </div>
@@ -197,7 +197,7 @@ export default function Footer() {
 
         {/* ── Copyright bar ── */}
         <div className="border-t border-slate-800 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-slate-500 text-xs text-center sm:text-left">
+          <p className="text-slate-400 text-xs text-center sm:text-left">
             © {year} NRZ International (Pvt.) Ltd. All rights reserved. Rawalpindi, Pakistan.
           </p>
           <div className="flex items-center gap-4">
@@ -205,16 +205,16 @@ export default function Footer() {
               href="https://nrzpk.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-slate-500 hover:text-white text-xs transition-colors"
+              className="inline-flex items-center gap-1.5 text-slate-400 hover:text-white text-xs transition-colors"
             >
               nrzpk.com
               <ExternalLink size={10} aria-hidden="true" />
             </a>
             <span className="text-slate-700 text-xs">|</span>
-            <Link to="/contact" className="text-slate-500 hover:text-white text-xs transition-colors">
+            <Link to="/contact" className="text-slate-400 hover:text-white text-xs transition-colors">
               Privacy Policy
             </Link>
-            <Link to="/contact" className="text-slate-500 hover:text-white text-xs transition-colors">
+            <Link to="/contact" className="text-slate-400 hover:text-white text-xs transition-colors">
               Terms of Use
             </Link>
           </div>

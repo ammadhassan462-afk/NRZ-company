@@ -21,19 +21,11 @@ const navLinks = [
 ];
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
-
-  // Scroll detection
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
 
   // Close mobile menu on route change
   useEffect(() => {
@@ -72,7 +64,7 @@ export default function Navbar() {
       {/* Announcement bar */}
       <div className="bg-blue-700 text-white text-center py-2 text-xs sm:text-sm font-medium hidden sm:block">
         🎓&nbsp;
-        <span className="opacity-90">2025 September Intake Now Open — Limited Seats Available.</span>
+        <span className="opacity-90">2026 September Intake Now Open — Limited Seats Available.</span>
         &nbsp;
         <Link to="/apply" className="underline underline-offset-2 font-bold hover:text-amber-300 transition-colors">
           Apply Free →
@@ -82,14 +74,9 @@ export default function Navbar() {
       {/* Main nav */}
       <motion.nav
         initial={false}
-        animate={scrolled ? 'scrolled' : 'top'}
-        variants={{
-          top: { backgroundColor: 'rgba(0,0,0,0)', boxShadow: 'none' },
-          scrolled: { backgroundColor: 'rgba(255,255,255,0.97)', boxShadow: '0 1px 24px rgba(0,0,0,0.08)' },
-        }}
+        animate={{ backgroundColor: 'rgba(255,255,255,0.98)', boxShadow: '0 1px 24px rgba(0,0,0,0.08)' }}
         transition={{ duration: 0.25 }}
-        className="sticky top-0 left-0 right-0 z-50 backdrop-blur-md border-b border-transparent transition-colors"
-        style={{ borderColor: scrolled ? 'rgba(226,232,240,0.8)' : 'transparent' }}
+        className="sticky top-0 left-0 right-0 z-50 backdrop-blur-md border-b border-slate-200/80"
         role="navigation"
         aria-label="Main navigation"
       >
@@ -102,10 +89,10 @@ export default function Navbar() {
                 <GraduationCap size={18} className="text-white" />
               </div>
               <div className="flex flex-col leading-tight">
-                <span className={`font-black text-base tracking-tight transition-colors ${scrolled ? 'text-slate-900' : 'text-white'}`}>
+                <span className="font-black text-base tracking-tight text-slate-900 transition-colors">
                   NRZ International
                 </span>
-                <span className={`text-[10px] font-semibold tracking-widest uppercase transition-colors ${scrolled ? 'text-blue-700' : 'text-blue-200'}`}>
+                <span className="text-[10px] font-semibold tracking-widest uppercase text-blue-700 transition-colors">
                   Est. 2008 · Rawalpindi
                 </span>
               </div>
@@ -120,11 +107,9 @@ export default function Navbar() {
                       onClick={() => setOpenDropdown(openDropdown === link.label ? null : link.label)}
                       aria-expanded={openDropdown === link.label}
                       aria-haspopup="true"
-                      className={`flex items-center gap-1 px-3.5 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer ${
-                        scrolled
-                          ? 'text-slate-700 hover:text-blue-700 hover:bg-blue-50'
-                          : 'text-white/90 hover:text-white hover:bg-white/10'
-                      } ${isActive(link.href) ? (scrolled ? 'text-blue-700' : 'text-white') : ''}`}
+                      className={`flex items-center gap-1 px-3.5 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer text-slate-700 hover:text-blue-700 hover:bg-blue-50 ${
+                        isActive(link.href) ? 'text-blue-700' : ''
+                      }`}
                     >
                       {link.label}
                       <ChevronDown
@@ -176,11 +161,9 @@ export default function Navbar() {
                   <Link
                     key={link.label}
                     to={link.href}
-                    className={`px-3.5 py-2 rounded-lg text-sm font-medium transition-all ${
-                      scrolled
-                        ? 'text-slate-700 hover:text-blue-700 hover:bg-blue-50'
-                        : 'text-white/90 hover:text-white hover:bg-white/10'
-                    } ${isActive(link.href) ? (scrolled ? 'text-blue-700 bg-blue-50' : 'text-white bg-white/10') : ''}`}
+                    className={`px-3.5 py-2 rounded-lg text-sm font-medium transition-all text-slate-700 hover:text-blue-700 hover:bg-blue-50 ${
+                      isActive(link.href) ? 'text-blue-700 bg-blue-50' : ''
+                    }`}
                   >
                     {link.label}
                   </Link>
@@ -192,21 +175,15 @@ export default function Navbar() {
             <div className="hidden lg:flex items-center gap-2.5">
               <a
                 href="tel:+925145715988"
-                className={`flex items-center gap-1.5 text-sm font-medium transition-colors ${
-                  scrolled ? 'text-slate-600 hover:text-blue-700' : 'text-white/80 hover:text-white'
-                }`}
+                className="flex items-center gap-1.5 text-sm font-medium text-slate-600 hover:text-blue-700 transition-colors"
               >
                 <Phone size={14} />
                 <span>051 457 1988</span>
               </a>
-              <div className={`w-px h-5 ${scrolled ? 'bg-slate-200' : 'bg-white/20'}`} />
+              <div className="w-px h-5 bg-slate-200" />
               <Link
                 to="/login"
-                className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
-                  scrolled
-                    ? 'text-slate-700 hover:text-blue-700 hover:bg-blue-50'
-                    : 'text-white hover:bg-white/10'
-                }`}
+                className="px-4 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:text-blue-700 hover:bg-blue-50 transition-all"
               >
                 Sign In
               </Link>
@@ -220,9 +197,7 @@ export default function Navbar() {
 
             {/* Mobile menu toggle */}
             <button
-              className={`lg:hidden p-2 rounded-lg transition-colors ${
-                scrolled ? 'text-slate-700 hover:bg-slate-100' : 'text-white hover:bg-white/10'
-              }`}
+              className="lg:hidden p-2 rounded-lg text-slate-700 hover:bg-slate-100 transition-colors"
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={mobileOpen}

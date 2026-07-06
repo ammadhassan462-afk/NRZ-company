@@ -155,7 +155,7 @@ export default function CTASection() {
                     aria-hidden="true"
                   />
                   <span className="text-amber-300 text-xs font-bold tracking-wide uppercase">
-                    2025 September Intake — Open Now
+                    2026 September Intake — Open Now
                   </span>
                 </div>
 

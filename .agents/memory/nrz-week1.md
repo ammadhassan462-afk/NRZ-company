@@ -26,14 +26,14 @@ description: Stack choices, strict UI-only rules, design conventions, and comple
 - Section pattern: pill badge → h2 → subtitle → content
 - Framer Motion: whileInView + viewport={{ once: true, margin: '-60px' }} for scroll entrance; infinite loops must check useReducedMotion
 - ARIA: aria-labelledby on sections, aria-hidden on decorative elements, role="menu" on dropdowns, aria-expanded on triggers, Escape key closes all menus/dropdowns
-- Navbar: transparent at top → white/95 + shadow on scroll (motion.nav with variants)
+- Navbar: always white/98 + shadow + border (no transparent top state) so nav text is visible and consistent
 - Each major section has an id: #about, #why-choose, #apply
 
 ## Completed homepage sections (all in src/components/)
 | Section | File | Notes |
 |---|---|---|
 | Announcement bar | layout/Navbar.tsx | Blue strip, intake message, hidden on mobile |
-| Sticky Navbar | layout/Navbar.tsx | Transparent→white scroll, keyboard dropdown, mobile accordion |
+| Sticky Navbar | layout/Navbar.tsx | White background, keyboard dropdown, mobile accordion |
 | Hero | home/HeroSection.tsx | Photo bg 85% pos, directional overlay, admission card mt-48, 4-stat bar |
 | About NRZ | home/AboutSection.tsx | Dark impact panel (2×2 stats, recognitions), narrative text, 2 office cards |
 | Why Choose NRZ | home/WhyChooseSection.tsx | 6 advantage cards (per-card accent), 3 testimonials, trust-bar CTA |

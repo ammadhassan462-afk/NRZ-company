@@ -160,7 +160,7 @@ export default function WhyChooseSection() {
               Join 5,000+ Pakistani Students <span className="text-amber-400">Already Enrolled</span>
             </p>
             <p className="text-blue-200 text-sm mt-1">
-              2025 September intake is open — limited seats at partner universities.
+              2026 September intake is open — limited seats at partner universities.
             </p>
           </div>
           <Link
