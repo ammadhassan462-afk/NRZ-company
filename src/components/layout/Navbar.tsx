@@ -1,292 +1,323 @@
-import { useState, useEffect, useRef, useCallback } from 'react'
-import { Link, useLocation } from 'react-router-dom'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, GraduationCap, ChevronDown } from 'lucide-react'
-import { cn } from '@/lib/utils'
+import { useState, useEffect, useRef } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronDown, Menu, X, Phone, GraduationCap } from 'lucide-react';
+
+const programLinks = [
+  { label: 'MBBS in China', href: '/programs/mbbs-china', badge: 'Most Popular' },
+  { label: 'MBBS in Kyrgyzstan', href: '/programs/mbbs-kyrgyzstan', badge: '' },
+  { label: 'BDS in China', href: '/programs/bds-china', badge: '' },
+  { label: 'Engineering in China', href: '/programs/engineering-china', badge: '' },
+  { label: 'Pharmacy in China', href: '/programs/pharmacy-china', badge: '' },
+  { label: 'Chinese Language', href: '/programs/chinese-language', badge: '' },
+];
 
 const navLinks = [
   { label: 'Home', href: '/' },
-  {
-    label: 'Programs',
-    href: '/programs',
-    children: [
-      { label: 'MBBS in China', href: '/programs' },
-      { label: 'BDS in China', href: '/programs' },
-      { label: 'Clinical Medicine', href: '/programs' },
-      { label: 'BS Nursing', href: '/programs' },
-      { label: 'Engineering', href: '/programs' },
-      { label: 'Chinese Language Course', href: '/programs' },
-    ],
-  },
+  { label: 'Programs', href: '/programs', children: programLinks },
   { label: 'Universities', href: '/universities' },
-  { label: 'About Us', href: '/#about' },
+  { label: 'About Us', href: '/about' },
   { label: 'Contact', href: '/contact' },
-]
+];
 
 export default function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [mobileOpen, setMobileOpen] = useState(false)
-  const [openDropdown, setOpenDropdown] = useState<string | null>(null)
-  const [mobileExpanded, setMobileExpanded] = useState<string | null>(null)
-  const location = useLocation()
-  const dropdownRef = useRef<HTMLDivElement>(null)
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const location = useLocation();
 
+  // Scroll detection
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20)
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
+  // Close mobile menu on route change
   useEffect(() => {
-    setMobileOpen(false)
-    setOpenDropdown(null)
-  }, [location])
+    setMobileOpen(false);
+    setOpenDropdown(null);
+  }, [location.pathname]);
 
-  // Close dropdown on Escape key
-  const handleKeyDown = useCallback((e: KeyboardEvent) => {
-    if (e.key === 'Escape') {
-      setOpenDropdown(null)
-      setMobileOpen(false)
-    }
-  }, [])
-
+  // Outside click closes dropdown
   useEffect(() => {
-    document.addEventListener('keydown', handleKeyDown)
-    return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [handleKeyDown])
-
-  // Close dropdown on outside click
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
+    const handleClick = (e: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
-        setOpenDropdown(null)
+        setOpenDropdown(null);
       }
-    }
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [])
+    };
+    document.addEventListener('mousedown', handleClick);
+    return () => document.removeEventListener('mousedown', handleClick);
+  }, []);
+
+  // Escape key closes dropdown & mobile menu
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setOpenDropdown(null);
+        setMobileOpen(false);
+      }
+    };
+    document.addEventListener('keydown', handleKey);
+    return () => document.removeEventListener('keydown', handleKey);
+  }, []);
+
+  const isActive = (href: string) =>
+    href === '/' ? location.pathname === '/' : location.pathname.startsWith(href);
 
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.4, ease: 'easeOut' }}
-      className={cn(
-        'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
-        isScrolled
-          ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-100'
-          : 'bg-transparent'
-      )}
-      role="navigation"
-      aria-label="Main navigation"
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-18 py-4">
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-2.5 group" aria-label="NRZ International — Home">
-            <div className="w-9 h-9 rounded-lg bg-blue-700 flex items-center justify-center shadow-md group-hover:bg-blue-800 transition-colors">
-              <GraduationCap className="w-5 h-5 text-white" aria-hidden="true" />
-            </div>
-            <div className="flex flex-col leading-tight">
-              <span className={cn('font-bold text-base tracking-tight transition-colors', isScrolled ? 'text-slate-900' : 'text-white')}>
-                NRZ International
-              </span>
-              <span className={cn('text-[10px] font-medium tracking-wide transition-colors', isScrolled ? 'text-blue-700' : 'text-blue-200')}>
-                EST. 2008 · RAWALPINDI
-              </span>
-            </div>
-          </Link>
-
-          {/* Desktop Nav */}
-          <div className="hidden lg:flex items-center gap-1" ref={dropdownRef}>
-            {navLinks.map((link) =>
-              link.children ? (
-                <div key={link.label} className="relative">
-                  <button
-                    aria-haspopup="true"
-                    aria-expanded={openDropdown === link.label}
-                    aria-controls={`dropdown-${link.label}`}
-                    onClick={() => setOpenDropdown(openDropdown === link.label ? null : link.label)}
-                    onMouseEnter={() => setOpenDropdown(link.label)}
-                    onMouseLeave={() => setOpenDropdown(null)}
-                    className={cn(
-                      'flex items-center gap-1 px-3.5 py-2 rounded-md text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-blue-500',
-                      isScrolled
-                        ? 'text-slate-700 hover:text-blue-700 hover:bg-blue-50'
-                        : 'text-white/90 hover:text-white hover:bg-white/10'
-                    )}
-                  >
-                    {link.label}
-                    <ChevronDown
-                      className={cn('w-3.5 h-3.5 transition-transform', openDropdown === link.label && 'rotate-180')}
-                      aria-hidden="true"
-                    />
-                  </button>
-                  <AnimatePresence>
-                    {openDropdown === link.label && (
-                      <motion.div
-                        id={`dropdown-${link.label}`}
-                        role="menu"
-                        initial={{ opacity: 0, y: 6 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 6 }}
-                        transition={{ duration: 0.15 }}
-                        onMouseEnter={() => setOpenDropdown(link.label)}
-                        onMouseLeave={() => setOpenDropdown(null)}
-                        className="absolute top-full left-0 mt-1.5 w-52 bg-white rounded-xl shadow-xl border border-slate-100 py-2 z-50"
-                      >
-                        {link.children.map((child) => (
-                          <Link
-                            key={child.label}
-                            to={child.href}
-                            role="menuitem"
-                            className="block px-4 py-2.5 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors font-medium focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:bg-blue-50"
-                            onClick={() => setOpenDropdown(null)}
-                          >
-                            {child.label}
-                          </Link>
-                        ))}
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              ) : (
-                <Link
-                  key={link.label}
-                  to={link.href}
-                  className={cn(
-                    'px-3.5 py-2 rounded-md text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-blue-500',
-                    isScrolled
-                      ? 'text-slate-700 hover:text-blue-700 hover:bg-blue-50'
-                      : 'text-white/90 hover:text-white hover:bg-white/10'
-                  )}
-                >
-                  {link.label}
-                </Link>
-              )
-            )}
-          </div>
-
-          {/* Desktop CTA */}
-          <div className="hidden lg:flex items-center gap-3">
-            <Link
-              to="/login"
-              className={cn(
-                'px-4 py-2 text-sm font-semibold rounded-lg transition-all focus-visible:outline-2 focus-visible:outline-blue-500',
-                isScrolled
-                  ? 'text-blue-700 hover:bg-blue-50'
-                  : 'text-white/90 hover:text-white hover:bg-white/10'
-              )}
-            >
-              Sign In
-            </Link>
-            <Link
-              to="/apply"
-              className="px-5 py-2 bg-amber-400 hover:bg-amber-500 text-slate-900 text-sm font-bold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 focus-visible:outline-2 focus-visible:outline-amber-600"
-            >
-              Apply Now
-            </Link>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            aria-expanded={mobileOpen}
-            aria-controls="mobile-menu"
-            aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
-            className={cn(
-              'lg:hidden p-2 rounded-lg transition-colors focus-visible:outline-2 focus-visible:outline-blue-500',
-              isScrolled ? 'text-slate-700 hover:bg-slate-100' : 'text-white hover:bg-white/10'
-            )}
-          >
-            {mobileOpen ? <X className="w-5 h-5" aria-hidden="true" /> : <Menu className="w-5 h-5" aria-hidden="true" />}
-          </button>
-        </div>
+    <>
+      {/* Announcement bar */}
+      <div className="bg-blue-700 text-white text-center py-2 text-xs sm:text-sm font-medium hidden sm:block">
+        🎓&nbsp;
+        <span className="opacity-90">2025 September Intake Now Open — Limited Seats Available.</span>
+        &nbsp;
+        <Link to="/apply" className="underline underline-offset-2 font-bold hover:text-amber-300 transition-colors">
+          Apply Free →
+        </Link>
       </div>
 
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            id="mobile-menu"
-            role="dialog"
-            aria-label="Mobile navigation"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.2 }}
-            className="lg:hidden bg-white border-t border-slate-100 shadow-lg overflow-hidden"
-          >
-            <div className="px-4 py-4 space-y-1">
-              {navLinks.map((link) => (
-                <div key={link.label}>
-                  {link.children ? (
-                    <>
+      {/* Main nav */}
+      <motion.nav
+        initial={false}
+        animate={scrolled ? 'scrolled' : 'top'}
+        variants={{
+          top: { backgroundColor: 'rgba(0,0,0,0)', boxShadow: 'none' },
+          scrolled: { backgroundColor: 'rgba(255,255,255,0.97)', boxShadow: '0 1px 24px rgba(0,0,0,0.08)' },
+        }}
+        transition={{ duration: 0.25 }}
+        className="sticky top-0 left-0 right-0 z-50 backdrop-blur-md border-b border-transparent transition-colors"
+        style={{ borderColor: scrolled ? 'rgba(226,232,240,0.8)' : 'transparent' }}
+        role="navigation"
+        aria-label="Main navigation"
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16 lg:h-18">
+
+            {/* Logo */}
+            <Link to="/" className="flex items-center gap-2.5 group flex-shrink-0" aria-label="NRZ International — Home">
+              <div className="w-9 h-9 rounded-lg bg-blue-700 flex items-center justify-center shadow-md group-hover:bg-blue-800 transition-colors flex-shrink-0">
+                <GraduationCap size={18} className="text-white" />
+              </div>
+              <div className="flex flex-col leading-tight">
+                <span className={`font-black text-base tracking-tight transition-colors ${scrolled ? 'text-slate-900' : 'text-white'}`}>
+                  NRZ International
+                </span>
+                <span className={`text-[10px] font-semibold tracking-widest uppercase transition-colors ${scrolled ? 'text-blue-700' : 'text-blue-200'}`}>
+                  Est. 2008 · Rawalpindi
+                </span>
+              </div>
+            </Link>
+
+            {/* Desktop nav links */}
+            <div ref={dropdownRef} className="hidden lg:flex items-center gap-0.5">
+              {navLinks.map((link) =>
+                link.children ? (
+                  <div key={link.label} className="relative">
+                    <button
+                      onClick={() => setOpenDropdown(openDropdown === link.label ? null : link.label)}
+                      aria-expanded={openDropdown === link.label}
+                      aria-haspopup="true"
+                      className={`flex items-center gap-1 px-3.5 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer ${
+                        scrolled
+                          ? 'text-slate-700 hover:text-blue-700 hover:bg-blue-50'
+                          : 'text-white/90 hover:text-white hover:bg-white/10'
+                      } ${isActive(link.href) ? (scrolled ? 'text-blue-700' : 'text-white') : ''}`}
+                    >
+                      {link.label}
+                      <ChevronDown
+                        size={14}
+                        className={`transition-transform duration-200 ${openDropdown === link.label ? 'rotate-180' : ''}`}
+                      />
+                    </button>
+
+                    <AnimatePresence>
+                      {openDropdown === link.label && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 6, scale: 0.97 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          exit={{ opacity: 0, y: 6, scale: 0.97 }}
+                          transition={{ duration: 0.15 }}
+                          className="absolute top-full left-0 mt-2 w-60 bg-white rounded-xl shadow-2xl border border-slate-100 py-2 z-50"
+                          role="menu"
+                        >
+                          {link.children.map((child) => (
+                            <Link
+                              key={child.href}
+                              to={child.href}
+                              role="menuitem"
+                              className="flex items-center justify-between px-4 py-2.5 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors"
+                              onClick={() => setOpenDropdown(null)}
+                            >
+                              <span>{child.label}</span>
+                              {child.badge && (
+                                <span className="text-[10px] bg-amber-100 text-amber-700 font-bold px-2 py-0.5 rounded-full">
+                                  {child.badge}
+                                </span>
+                              )}
+                            </Link>
+                          ))}
+                          <div className="border-t border-slate-100 mt-2 pt-2 px-4 pb-1">
+                            <Link
+                              to="/programs"
+                              className="text-xs text-blue-700 font-semibold hover:underline"
+                              onClick={() => setOpenDropdown(null)}
+                            >
+                              View all programs →
+                            </Link>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                ) : (
+                  <Link
+                    key={link.label}
+                    to={link.href}
+                    className={`px-3.5 py-2 rounded-lg text-sm font-medium transition-all ${
+                      scrolled
+                        ? 'text-slate-700 hover:text-blue-700 hover:bg-blue-50'
+                        : 'text-white/90 hover:text-white hover:bg-white/10'
+                    } ${isActive(link.href) ? (scrolled ? 'text-blue-700 bg-blue-50' : 'text-white bg-white/10') : ''}`}
+                  >
+                    {link.label}
+                  </Link>
+                )
+              )}
+            </div>
+
+            {/* Desktop CTAs */}
+            <div className="hidden lg:flex items-center gap-2.5">
+              <a
+                href="tel:+925145715988"
+                className={`flex items-center gap-1.5 text-sm font-medium transition-colors ${
+                  scrolled ? 'text-slate-600 hover:text-blue-700' : 'text-white/80 hover:text-white'
+                }`}
+              >
+                <Phone size={14} />
+                <span>051 457 1988</span>
+              </a>
+              <div className={`w-px h-5 ${scrolled ? 'bg-slate-200' : 'bg-white/20'}`} />
+              <Link
+                to="/login"
+                className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
+                  scrolled
+                    ? 'text-slate-700 hover:text-blue-700 hover:bg-blue-50'
+                    : 'text-white hover:bg-white/10'
+                }`}
+              >
+                Sign In
+              </Link>
+              <Link
+                to="/apply"
+                className="px-5 py-2 bg-amber-400 hover:bg-amber-500 text-slate-900 font-bold text-sm rounded-lg shadow-sm hover:shadow-md transition-all"
+              >
+                Apply Now
+              </Link>
+            </div>
+
+            {/* Mobile menu toggle */}
+            <button
+              className={`lg:hidden p-2 rounded-lg transition-colors ${
+                scrolled ? 'text-slate-700 hover:bg-slate-100' : 'text-white hover:bg-white/10'
+              }`}
+              onClick={() => setMobileOpen(!mobileOpen)}
+              aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={mobileOpen}
+            >
+              {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile menu */}
+        <AnimatePresence>
+          {mobileOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.2 }}
+              className="lg:hidden bg-white border-t border-slate-100 shadow-xl overflow-hidden"
+            >
+              <div className="px-4 py-4 space-y-1">
+                {navLinks.map((link) =>
+                  link.children ? (
+                    <div key={link.label}>
                       <button
                         onClick={() => setMobileExpanded(mobileExpanded === link.label ? null : link.label)}
-                        aria-expanded={mobileExpanded === link.label}
-                        className="w-full flex items-center justify-between px-3 py-2.5 text-sm font-medium text-slate-700 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors"
+                        className="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-slate-700 font-medium text-sm hover:bg-blue-50 hover:text-blue-700 transition-colors"
                       >
-                        {link.label}
+                        <span>{link.label}</span>
                         <ChevronDown
-                          className={cn('w-4 h-4 transition-transform', mobileExpanded === link.label && 'rotate-180')}
-                          aria-hidden="true"
+                          size={16}
+                          className={`transition-transform ${mobileExpanded === link.label ? 'rotate-180' : ''}`}
                         />
                       </button>
                       <AnimatePresence>
                         {mobileExpanded === link.label && (
                           <motion.div
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: 'auto' }}
-                            exit={{ opacity: 0, height: 0 }}
-                            transition={{ duration: 0.15 }}
-                            className="ml-4 mt-1 space-y-1 overflow-hidden"
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: 'auto', opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            className="pl-4 overflow-hidden"
                           >
                             {link.children.map((child) => (
                               <Link
-                                key={child.label}
+                                key={child.href}
                                 to={child.href}
-                                className="block px-3 py-2 text-sm text-slate-500 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors"
-                                onClick={() => setMobileOpen(false)}
+                                className="flex items-center justify-between px-3 py-2 rounded-lg text-sm text-slate-600 hover:bg-blue-50 hover:text-blue-700 transition-colors"
                               >
-                                {child.label}
+                                <span>{child.label}</span>
+                                {child.badge && (
+                                  <span className="text-[10px] bg-amber-100 text-amber-700 font-bold px-2 py-0.5 rounded-full">
+                                    {child.badge}
+                                  </span>
+                                )}
                               </Link>
                             ))}
                           </motion.div>
                         )}
                       </AnimatePresence>
-                    </>
+                    </div>
                   ) : (
                     <Link
+                      key={link.label}
                       to={link.href}
-                      className="block px-3 py-2.5 text-sm font-medium text-slate-700 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors"
-                      onClick={() => setMobileOpen(false)}
+                      className={`block px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                        isActive(link.href)
+                          ? 'bg-blue-50 text-blue-700'
+                          : 'text-slate-700 hover:bg-blue-50 hover:text-blue-700'
+                      }`}
                     >
                       {link.label}
                     </Link>
-                  )}
-                </div>
-              ))}
-              <div className="pt-3 pb-1 border-t border-slate-100 flex flex-col gap-2">
-                <Link
-                  to="/login"
-                  className="w-full text-center px-4 py-2.5 text-sm font-semibold text-blue-700 border border-blue-200 rounded-lg hover:bg-blue-50 transition-colors"
-                  onClick={() => setMobileOpen(false)}
+                  )
+                )}
+              </div>
+
+              {/* Mobile CTAs */}
+              <div className="px-4 pb-5 pt-2 border-t border-slate-100 flex flex-col gap-2.5 mt-1">
+                <a
+                  href="tel:+925145715988"
+                  className="flex items-center justify-center gap-2 py-2.5 rounded-lg border border-slate-200 text-slate-700 text-sm font-medium hover:bg-slate-50 transition-colors"
                 >
-                  Sign In
-                </Link>
+                  <Phone size={15} />
+                  Call: 051 457 1988
+                </a>
                 <Link
                   to="/apply"
-                  className="w-full text-center px-4 py-2.5 text-sm font-bold bg-amber-400 hover:bg-amber-500 text-slate-900 rounded-lg transition-colors"
-                  onClick={() => setMobileOpen(false)}
+                  className="block text-center py-3 bg-amber-400 hover:bg-amber-500 text-slate-900 font-bold text-sm rounded-lg transition-colors"
                 >
-                  Apply Now
+                  Apply Now — Free
                 </Link>
               </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.nav>
-  )
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.nav>
+    </>
+  );
 }
